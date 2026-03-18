@@ -22,6 +22,13 @@
   function date(v) { const d = new Date(v); return isNaN(d.getTime()) ? null : d; }
   function day(d) { return Math.floor(d.getTime() / 86400000); }
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+  function fmtDate(d) {
+    if (!d) return "--/--/--";
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = String(d.getFullYear()).slice(-2);
+    return `${dd}/${mm}/${yy}`;
+  }
   function endSortAsc(a, b) {
     const da = date(val(a, "end", ["DueDate", "EndDate"]));
     const db = date(val(b, "end", ["DueDate", "EndDate"]));
@@ -75,10 +82,10 @@
       const left = clamp(((day(s) - minDay) / total) * 100, 0, 100);
       const right = clamp(((day(e) - minDay + 1) / total) * 100, 0, 100);
       const width = Math.max(1, right - left);
-      return `<div class="timeline-row"><div class="task-name">${esc(t)}</div><div class="task-sub">Progress: ${esc(p == null ? "N/A" : p.toFixed(0) + "%")}</div><div class="timeline-track"><div class="timeline-bar" style="left:${left.toFixed(2)}%;width:${width.toFixed(2)}%;background:${colorProgress(p)};"></div></div></div>`;
+      return `<div class="timeline-row"><div class="task-name">${esc(t)} <span class="task-dates">(${esc(fmtDate(s))} - ${esc(fmtDate(e))})</span></div><div class="task-sub">Progress: ${esc(p == null ? "N/A" : p.toFixed(0) + "%")}</div><div class="timeline-track"><div class="timeline-bar" style="left:${left.toFixed(2)}%;width:${width.toFixed(2)}%;background:${colorProgress(p)};"></div></div></div>`;
     }).join("");
 
-    return `<div class="timeline-card"><h3>${esc(managerName)}</h3><div class="timeline-axis"><span>${esc(min.toLocaleDateString())}</span><span>${esc(max.toLocaleDateString())}</span></div>${lines}</div>`;
+    return `<div class="timeline-card"><h3>${esc(managerName)}</h3><div class="timeline-axis"><span>${esc(fmtDate(min))}</span><span>${esc(fmtDate(max))}</span></div>${lines}</div>`;
   }
 
   async function render() {
@@ -99,7 +106,7 @@
       rows1.sort(endSortAsc);
       rows2.sort(endSortAsc);
 
-      status.textContent = `${new Date().toLocaleString()}`;
+      status.textContent = `${fmtDate(new Date())}`;
       timelines.innerHTML = timeline(rows1, CONFIG.managerOne) + timeline(rows2, CONFIG.managerTwo);
     } catch (e) {
       status.innerHTML = `<span class="error">Failed to load data: ${esc(e && e.message ? e.message : e)}</span>`;

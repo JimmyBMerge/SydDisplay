@@ -18,5 +18,6 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: "Segoe
 .timeline-track { position: relative; height: 8px; border-radius: 6px; background: #ecebea; margin-top: 2px; }
 .timeline-bar { position: absolute; top: 0; height: 8px; border-radius: 6px; min-width: 3px; }
 .task-name { font-weight: 600; font-size: 12px; line-height: 1.1; }
+.task-dates { font-weight: 400; color: var(--sub); font-size: 10px; }
 .task-sub { color: var(--sub); font-size: 10px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .error { color: #a4262c; font-weight: 600; font-size: 11px; }
