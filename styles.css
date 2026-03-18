@@ -7,28 +7,16 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: "Segoe UI", Tahoma, Arial, sans-serif; }
-.page { max-width: 1600px; margin: 0 auto; padding: 16px; }
-h1, h2 { margin: 0 0 10px; }
-h1 { font-size: 24px; }
-h2 { margin-top: 18px; font-size: 18px; }
-.meta { color: var(--sub); margin: 0 0 8px; }
-.manager-grid, .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (max-width: 1000px) { .manager-grid, .charts-grid { grid-template-columns: 1fr; } }
-.timeline-card, .chart-card { border: 1px solid var(--line); background: var(--card); padding: 10px; }
-.timeline-axis { display: flex; justify-content: space-between; color: var(--sub); font-size: 12px; margin-bottom: 6px; }
-.timeline-row { margin-bottom: 10px; }
-.timeline-track { position: relative; height: 16px; border-radius: 10px; background: #f3f2f1; margin-top: 3px; }
-.timeline-bar { position: absolute; top: 0; height: 16px; border-radius: 10px; min-width: 6px; }
-.task-name { font-weight: 600; }
-.task-sub { color: var(--sub); font-size: 12px; }
-.bar-row { display: grid; grid-template-columns: 110px 1fr 32px; gap: 8px; align-items: center; margin-bottom: 6px; font-size: 12px; }
-.bar-track { height: 12px; border-radius: 8px; background: #edebe9; }
-.bar-fill { height: 12px; border-radius: 8px; }
-.avg-label { font-size: 12px; margin-bottom: 4px; }
-.avg-track { height: 10px; border-radius: 8px; background: #edebe9; margin-bottom: 10px; }
-.avg-fill { height: 10px; border-radius: 8px; }
-.table-wrap { overflow: auto; border: 1px solid var(--line); background: var(--card); }
-table { width: 100%; border-collapse: collapse; min-width: 900px; }
-th, td { border: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-th { background: #f3f2f1; }
-.error { color: #a4262c; font-weight: 600; }
+.page { width: 100%; margin: 0; padding: 8px; }
+.status { min-height: 18px; color: var(--sub); font-size: 11px; margin: 0 0 6px; }
+.manager-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+@media (max-width: 1200px) { .manager-grid { grid-template-columns: 1fr; } }
+.timeline-card { border: 1px solid var(--line); background: var(--card); padding: 6px; width: 100%; }
+.timeline-card h3 { margin: 0 0 4px; font-size: 15px; line-height: 1.2; }
+.timeline-axis { display: flex; justify-content: space-between; color: var(--sub); font-size: 10px; margin-bottom: 4px; }
+.timeline-row { margin-bottom: 5px; }
+.timeline-track { position: relative; height: 8px; border-radius: 6px; background: #ecebea; margin-top: 2px; }
+.timeline-bar { position: absolute; top: 0; height: 8px; border-radius: 6px; min-width: 3px; }
+.task-name { font-weight: 600; font-size: 12px; line-height: 1.1; }
+.task-sub { color: var(--sub); font-size: 10px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.error { color: #a4262c; font-weight: 600; font-size: 11px; }

@@ -3,30 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Planner Timeline Dashboard</title>
+  <title>Planner Timelines</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <main class="page">
-    <h1>Planner Timeline Dashboard</h1>
-    <p id="meta" class="meta">Loading...</p>
-
-    <section>
-      <h2>Manager Timelines</h2>
-      <div id="timelines" class="manager-grid"></div>
-    </section>
-
-    <section>
-      <h2>Priority/Progress Charts</h2>
-      <div id="charts" class="charts-grid"></div>
-    </section>
-
-    <section>
-      <h2>Filtered Data</h2>
-      <div class="table-wrap">
-        <table id="dataTable"></table>
-      </div>
-    </section>
+    <div id="status" class="status" aria-live="polite"></div>
+    <div id="timelines" class="manager-grid"></div>
   </main>
   <script src="./app.js"></script>
 </body>
