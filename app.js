@@ -2,7 +2,7 @@
   "use strict";
 
   const CONFIG = {
-    dataUrl: "/sydplan.json",
+    dataUrl: "https://mergeitgroup.sharepoint.com/sites/TeamMergeTechnologies/SiteAssets/sydplan.json",
     refreshMs: 30 * 60 * 1000,
     managerOne: "Chris Burton",
     managerTwo: "Matt Bowcock"
@@ -92,7 +92,8 @@
     const status = el("status"), timelines = el("timelines");
     try {
       status.textContent = "Loading...";
-      const res = await fetch(CONFIG.dataUrl, { cache: "no-store" });
+      const url = `${CONFIG.dataUrl}${CONFIG.dataUrl.includes("?") ? "&" : "?"}t=${Date.now()}`;
+      const res = await fetch(url, { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
       const rows = normalize(await res.json());
       const m1 = CONFIG.managerOne.toLowerCase();
