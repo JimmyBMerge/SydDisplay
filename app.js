@@ -62,6 +62,26 @@
     if (payload && Array.isArray(payload.value)) return payload.value;
     return [];
   }
+  function dataRefreshDate(payload, response) {
+    if (payload && typeof payload === "object" && !Array.isArray(payload)) {
+      const p = payload;
+      const metaValue =
+        p.lastRefresh ||
+        p.last_refreshed ||
+        p.lastRefreshed ||
+        p.lastUpdated ||
+        p.updatedAt ||
+        p.generatedAt;
+      if (metaValue) {
+        const d = date(metaValue);
+        if (d) return d;
+      }
+    }
+    const lastModified = response.headers.get("last-modified");
+    const d = date(lastModified);
+    if (d) return d;
+    return new Date();
+  }
 
   function timeline(rows, managerName) {
     let min = null, max = null;
@@ -101,7 +121,8 @@
       const url = `${CONFIG.dataUrl}${CONFIG.dataUrl.includes("?") ? "&" : "?"}t=${Date.now()}`;
       const res = await fetch(url, { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-      const rows = normalize(await res.json());
+      const payload = await res.json();
+      const rows = normalize(payload);
       const m1 = CONFIG.managerOne.toLowerCase();
       const m2 = CONFIG.managerTwo.toLowerCase();
       const byManager = rows.filter(r => {
@@ -113,8 +134,8 @@
       rows1.sort(endSortAsc);
       rows2.sort(endSortAsc);
 
-      const now = new Date();
-      status.textContent = `Last refresh: ${fmtDate(now)} ${fmtTime(now)}`;
+      const dataRefreshedAt = dataRefreshDate(payload, res);
+      status.textContent = `Last refresh: ${fmtDate(dataRefreshedAt)} ${fmtTime(dataRefreshedAt)}`;
       timelines.innerHTML = timeline(rows1, CONFIG.managerOne) + timeline(rows2, CONFIG.managerTwo);
     } catch (e) {
       status.innerHTML = `<span class="error">Failed to load data: ${esc(e && e.message ? e.message : e)}</span>`;
