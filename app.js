@@ -29,6 +29,12 @@
     const yy = String(d.getFullYear()).slice(-2);
     return `${dd}/${mm}/${yy}`;
   }
+  function fmtTime(d) {
+    if (!d) return "--:--";
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mi = String(d.getMinutes()).padStart(2, "0");
+    return `${hh}:${mi}`;
+  }
   function endSortAsc(a, b) {
     const da = date(val(a, "end", ["DueDate", "EndDate"]));
     const db = date(val(b, "end", ["DueDate", "EndDate"]));
@@ -107,7 +113,8 @@
       rows1.sort(endSortAsc);
       rows2.sort(endSortAsc);
 
-      status.textContent = `${fmtDate(new Date())}`;
+      const now = new Date();
+      status.textContent = `Last refresh: ${fmtDate(now)} ${fmtTime(now)}`;
       timelines.innerHTML = timeline(rows1, CONFIG.managerOne) + timeline(rows2, CONFIG.managerTwo);
     } catch (e) {
       status.innerHTML = `<span class="error">Failed to load data: ${esc(e && e.message ? e.message : e)}</span>`;
