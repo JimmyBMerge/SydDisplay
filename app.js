@@ -2,7 +2,7 @@
   "use strict";
 
   const CONFIG = {
-    dataUrl: "https://mergeitgroup.sharepoint.com/sites/TeamMergeTechnologies/SiteAssets/sydplan.json",
+    dataUrl: "/sydplan.json",
     refreshMs: 30 * 60 * 1000,
     managerOne: "Chris Burton",
     managerTwo: "Matt Bowcock"
